@@ -1,0 +1,68 @@
+import { computed, readonly } from 'vue'
+import { useApiFetch, useApiPost, API_ENDPOINTS } from '../core/useFetch'
+import type { AttendanceReservation, AddAttendanceReservationRequest, AttendanceFilters } from '../types/attendance'
+
+export function useApiReservations() {
+  // Composable para obtener todas las reservaciones
+  const getAllReservationsComposable = useApiFetch<AttendanceReservation[]>(API_ENDPOINTS.reservation.getAll, {
+    immediate: false
+  })
+
+  // Composable para crear reservación
+  const createReservationComposable = useApiPost<AttendanceReservation>(API_ENDPOINTS.reservation.create, {
+    immediate: false
+  })
+
+  // Composable para obtener escuelas
+  const getSchoolsComposable = useApiFetch(API_ENDPOINTS.reservation.getSchools, {
+    immediate: false
+  })
+
+  const getAllReservations = async (filters?: AttendanceFilters) => {
+    try {
+      await getAllReservationsComposable.execute({ query: filters || {} })
+      return getAllReservationsComposable.data.value
+    } catch (err) {
+      throw err
+    }
+  }
+
+  const createReservation = async (reservationData: AddAttendanceReservationRequest) => {
+    try {
+      await createReservationComposable.execute({ body: reservationData })
+      return createReservationComposable.data.value
+    } catch (err) {
+      throw err
+    }
+  }
+
+  const getSchools = async () => {
+    try {
+      await getSchoolsComposable.execute({ query: { TableName: 'Schools' } })
+      return getSchoolsComposable.data.value
+    } catch (err) {
+      throw err
+    }
+  }
+
+  return {
+    // State
+    reservations: readonly(getAllReservationsComposable.data),
+    schools: readonly(getSchoolsComposable.data),
+    loading: computed(() => 
+      getAllReservationsComposable.pending.value || 
+      createReservationComposable.pending.value || 
+      getSchoolsComposable.pending.value
+    ),
+    error: computed(() => 
+      getAllReservationsComposable.error.value || 
+      createReservationComposable.error.value || 
+      getSchoolsComposable.error.value
+    ),
+
+    // Methods
+    getAllReservations,
+    createReservation,
+    getSchools
+  }
+} 

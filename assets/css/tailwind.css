@@ -1,0 +1,288 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "../fonts/stylesheet.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* Colores base */
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  
+  /* Colores personalizados */
+  --color-institutional: hsl(var(--institutional));
+  --color-institutional-foreground: hsl(var(--institutional-foreground));
+  --color-warning: hsl(var(--warning));
+  --color-warning-foreground: hsl(var(--warning-foreground));
+  --color-success: hsl(var(--success));
+  --color-success-foreground: hsl(var(--success-foreground));
+  --color-info: hsl(var(--info));
+  --color-info-foreground: hsl(var(--info-foreground));
+  
+  /* Input state colors */
+  --color-input-empty: hsl(var(--input-empty));
+  --color-input-filled: hsl(var(--input-filled));
+  
+  /* Chart colors */
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+  
+  /* Border radius */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  
+  /* Sidebar colors */
+  --color-sidebar: hsl(var(--sidebar));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-accent: hsl(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+  --color-sidebar-ring: hsl(var(--sidebar-ring));
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  @keyframes accordion-down {
+  from {
+    height: 0;
+    }
+  to {
+    height: var(--reka-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+  from {
+    height: var(--reka-accordion-content-height);
+    }
+  to {
+    height: 0;
+    }
+  }
+}
+
+:root {
+  /* Base colors usando HSL para mejor compatibilidad */
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  
+  /* Card colors */
+  --card: 0 0% 100%;
+  --card-foreground: 60 1% 23%; 
+  
+  /* Popover colors */
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+  
+    /* Primary colors */
+  --primary: 293 39% 30%; /* hsl(293, 39%, 30%) */
+  --primary-foreground: 0 0% 98%;
+
+  /* Secondary colors */
+  --secondary: 210 71% 55%; /* hsl(210, 71%, 55%) */
+  --secondary-foreground: 0 0% 98%;
+  
+  /* Muted colors */
+  --muted: 0 0% 70%;
+  --muted-foreground: 0 0% 35%;
+  
+  /* Accent colors - Tertiary */
+  --accent: 218 100% 33%; /* hsl(218, 100%, 33%) */
+  --accent-foreground: 0 0% 98%;
+  
+  /* Destructive colors */
+  --destructive: 0 100% 43%;
+  --destructive-foreground: 0 100% 43%;
+  
+  /* Border and input colors */
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 287 37% 31%;
+  
+  /* Chart colors */
+  --chart-1: 12 76% 61%;
+  --chart-2: 173 58% 39%;
+  --chart-3: 197 37% 24%;
+  --chart-4: 43 74% 66%;
+  --chart-5: 27 87% 67%;
+  
+  /* Custom colors adicionales */
+  --institutional: 87 70% 43%; /* hsl(87, 70%, 43%) - Verde institucional */
+  --institutional-foreground: 0 0% 98%;
+  --warning: 45 100% 63%; /* hsl(45, 100%, 63%) - Accents */ 
+  --warning-foreground: 0 0% 15%;
+  --success: 142 76% 36%;
+  --success-foreground: 355 100% 94%;
+  --info: 204 94% 94%;
+  --info-foreground: 213 31% 91%;
+  
+  /* Input states colors */
+  --input-empty: 208 74% 95%; /* #EBF4FC */
+  --input-filled: 210 72% 82%; /* #B0D1F2 */
+  
+  /* Border radius */
+  --radius: 0.5rem;
+  
+  /* Sidebar colors simplificadas */
+  --sidebar: 0, 0%, 100%; /* hsl(0, 0%, 98%) */
+  --sidebar-foreground: 240 5.3% 26.1%;
+  --sidebar-primary: 287 37% 31%;
+  --sidebar-primary-foreground: 210 40% 98%;
+  --sidebar-accent: 213 50% 92%;
+  --sidebar-accent-foreground: 213 69% 25%;
+  --sidebar-border: 214.3 31.8% 91.4%;
+  --sidebar-ring: 287 37% 31%;
+}
+
+.dark {
+  /* Base colors para modo oscuro */
+  --background: 293 39% 30%; /* hsl(293, 39%, 30%) - Dark como background */
+  --foreground: 45 54% 89%; /* hsl(45, 54%, 89%) - Light como foreground */
+  
+  /* Card colors */
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+  
+  /* Popover colors */
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+  
+  /* Primary colors para modo oscuro */
+  --primary: 293 39% 45%; /* Más claro que el original para modo oscuro */
+  --primary-foreground: 45 54% 89%;
+
+  /* Secondary colors para modo oscuro */
+  --secondary: 210 71% 65%; /* Más claro que el original */
+  --secondary-foreground: 293 39% 30%;
+  
+  /* Muted colors */
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  
+  /* Accent colors - Tertiary adaptado para modo oscuro */
+  --accent: 218 100% 45%; /* hsl(218, 100%, 33%) más claro */
+  --accent-foreground: 45 54% 89%;
+  
+  /* Destructive colors */
+  --destructive: 0 100% 43%;
+  --destructive-foreground: 0 100% 43%;
+  
+  /* Border and input colors */
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 287 45% 55%;
+  
+  /* Chart colors para modo oscuro */
+  --chart-1: 220 70% 50%;
+  --chart-2: 160 60% 45%;
+  --chart-3: 30 80% 55%;
+  --chart-4: 280 65% 60%;
+  --chart-5: 340 75% 55%;
+  
+  /* Custom colors para modo oscuro */
+  --institutional: 87 70% 55%; /* hsl(87, 70%, 43%) más claro */
+  --institutional-foreground: 293 39% 30%;
+  --warning: 48 96% 89%;
+  --warning-foreground: 38 92% 50%;
+  --success: 142 76% 36%;
+  --success-foreground: 355 100% 94%;
+  --info: 213 31% 91%;
+  --info-foreground: 204 94% 94%;
+  
+  /* Input states colors para modo oscuro */
+  --input-empty: 215 25% 20%; /* Color más oscuro para modo oscuro */
+  --input-filled: 215 35% 30%; /* Color más oscuro para modo oscuro */
+  
+  /* Sidebar colors para modo oscuro */
+  --sidebar: 240 5.9% 10%;
+  --sidebar-foreground: 240 4.8% 95.9%;
+  --sidebar-primary: 287 45% 55%;
+  --sidebar-primary-foreground: 222.2 84% 4.9%;
+  --sidebar-accent: 213 25% 20%;
+  --sidebar-accent-foreground: 213 50% 85%;
+  --sidebar-border: 240 3.7% 15.9%;
+  --sidebar-ring: 287 45% 55%;
+}
+
+/* Sharp Grotesk Font Family Definitions */
+@font-face {
+  font-family: 'Sharp Grotesk';
+  src: url('../fonts/SharpGrotesk-Book15.woff2') format('woff2'),
+       url('../fonts/SharpGrotesk-Book15.woff') format('woff'),
+       url('../fonts/SharpGrotesk-Book15.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sharp Grotesk';
+  src: url('../fonts/SharpGrotesk-Medium15.woff2') format('woff2'),
+       url('../fonts/SharpGrotesk-Medium15.woff') format('woff'),
+       url('../fonts/SharpGrotesk-Medium15.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sharp Grotesk';
+  src: url('../fonts/SharpGrotesk-SemiBold15.woff2') format('woff2'),
+       url('../fonts/SharpGrotesk-SemiBold15.woff') format('woff'),
+       url('../fonts/SharpGrotesk-SemiBold15.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sharp Grotesk';
+  src: url('../fonts/SharpGrotesk-Bold15.woff2') format('woff2'),
+       url('../fonts/SharpGrotesk-Bold15.woff') format('woff'),
+       url('../fonts/SharpGrotesk-Bold15.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sharp Grotesk';
+  src: url('../fonts/SharpGrotesk-Light15.woff2') format('woff2'),
+       url('../fonts/SharpGrotesk-Light15.woff') format('woff'),
+       url('../fonts/SharpGrotesk-Light15.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  
+  body {
+    font-family: 'Sharp Grotesk';
+  }
+}
+

@@ -1,0 +1,150 @@
+import { ref, readonly } from 'vue'
+import { CostService } from '~/lib/api/services/cost'
+import type { 
+  Cost, 
+  CreateCostRequest, 
+  UpdateCostRequest, 
+  ArchiveCostRequest, 
+  DeleteCostRequest
+} from '~/lib/api/types'
+
+// Instancia singleton para evitar múltiples instancias
+let costServiceInstance: ReturnType<typeof createCostService> | null = null
+
+/**
+ * Función interna para crear el servicio de costos
+ */
+function createCostService() {
+  const costs = ref<Cost[]>([])
+  const loading = ref(false)
+  const error = ref<Error | null>(null)
+
+  // ============================================================================
+  // OPERACIONES DE COSTOS
+  // ============================================================================
+
+  const getAllCosts = async () => {
+    loading.value = true
+    error.value = null
+    try {
+      costs.value = await CostService.getAllCosts()
+      return costs.value
+    } catch (err) {
+      error.value = err as Error
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
+  const createCost = async (request: CreateCostRequest) => {
+    loading.value = true
+    error.value = null
+    try {
+      const newCost = await CostService.createCost(request)
+      // Agregar el nuevo costo a la lista local en lugar de recargar todo
+      costs.value.push(newCost)
+      return newCost
+    } catch (err) {
+      error.value = err as Error
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
+  const updateCost = async (request: UpdateCostRequest) => {
+    loading.value = true
+    error.value = null
+    try {
+      const updatedCost = await CostService.updateCost(request)
+      // Actualizar el costo en la lista local en lugar de recargar todo
+      const index = costs.value.findIndex(cost => cost.id === request.id)
+      if (index !== -1) {
+        costs.value[index] = updatedCost
+      }
+      return updatedCost
+    } catch (err) {
+      error.value = err as Error
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
+  const archiveCost = async (request: ArchiveCostRequest) => {
+    loading.value = true
+    error.value = null
+    try {
+      const result = await CostService.archiveCost(request)
+      // Actualizar el costo en la lista local en lugar de recargar todo
+      const index = costs.value.findIndex(cost => cost.id === request.id)
+      if (index !== -1) {
+        costs.value[index] = { ...costs.value[index], isArchived: true }
+      }
+      return result
+    } catch (err) {
+      error.value = err as Error
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
+  const deleteCost = async (request: DeleteCostRequest) => {
+    loading.value = true
+    error.value = null
+    try {
+      const result = await CostService.deleteCost(request)
+      // Remover el costo de la lista local en lugar de recargar todo
+      const index = costs.value.findIndex(cost => cost.id === request.id)
+      if (index !== -1) {
+        costs.value.splice(index, 1)
+      }
+      return result
+    } catch (err) {
+      error.value = err as Error
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
+  const getCostById = async (id: number) => {
+    loading.value = true
+    error.value = null
+    try {
+      return await CostService.getCostById(id)
+    } catch (err) {
+      error.value = err as Error
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
+  return {
+    // Estados reactivos
+    costs: readonly(costs),
+    loading: readonly(loading),
+    error: readonly(error),
+
+    // Operaciones de costos
+    getAllCosts,
+    getCostById,
+    createCost,
+    updateCost,
+    archiveCost,
+    deleteCost
+  }
+}
+
+/**
+ * Composable para gestión de costos con estados reactivos
+ */
+export function useCostService() {
+  if (!costServiceInstance) {
+    costServiceInstance = createCostService()
+  }
+  return costServiceInstance
+} 

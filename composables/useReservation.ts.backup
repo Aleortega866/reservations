@@ -1,0 +1,313 @@
+import { ref, computed, readonly } from 'vue'
+import { useApiReservations } from '@/lib/api/composables/reservations'
+import type { AddAttendanceReservationRequest } from '@/lib/api/services/attendance/attendance.service'
+
+export function useReservation() {
+  // Estado reactivo
+  const materialTab = ref('didactic')
+  const reservationType = ref('')
+  const isDemoMode = ref(false)
+  const reservationData = ref({
+    // Campos básicos
+    name: '',
+    email: '',
+    phone: '',
+    participants: 1,
+    date: '',
+    time: '',
+    school: '',
+    grade: '',
+    purpose: '',
+    specialNeeds: '',
+    notes: '',
+    
+    // Campos específicos del paso 1
+    totalAttendees: 1,
+    hasUnder3: 'no',
+    minors: 0,
+    children: 0,
+    adults: 1,
+    seniors: 0,
+    hasDisability: 'no',
+    
+    // Campos adicionales del paso 3
+    source: '',
+    preferences: '',
+    comments: ''
+  })
+
+  // Datos de ejemplo para diferentes tipos de reservación
+  const businessData = ref({
+    company: '',
+    position: '',
+    industry: '',
+    objectives: '',
+    participants: 1,
+    samePersonResponsible: 'yes',
+    representativeName: '',
+    representativePhone: '',
+    averageAge: '',
+    mainConcepts: [],
+    secondaryConcepts: [],
+    municipality: '',
+    specialNeeds: ''
+  })
+
+  const summerData = ref({
+    program: '',
+    ageGroup: '',
+    duration: '',
+    activities: '',
+    participants: 1,
+    samePersonResponsible: 'yes',
+    representativeName: '',
+    representativeEmail: '',
+    representativePhone: '',
+    hasSpecialNeeds: 'no',
+    municipality: '',
+    specialNeeds: ''
+  })
+
+  const schoolData = ref({
+    mainConcepts: [],
+    secondaryConcepts: [],
+    samePersonResponsible: true,
+    representativeName: '',
+    representativeEmail: '',
+    representativePhone: '',
+    municipality: '',
+    specialNeeds: ''
+  })
+
+  // API composables
+  const {
+    reservations,
+    schools,
+    loading,
+    error,
+    getAllReservations,
+    createReservation,
+    getSchools
+  } = useApiReservations()
+
+  // Computed properties
+  const hasReservations = computed(() => {
+    // Si estamos en modo demo, siempre mostrar reservaciones
+    if (isDemoMode.value) {
+      return true
+    }
+    // Asegurar que siempre devuelva un booleano
+    return Boolean(reservations.value && reservations.value.length > 0)
+  })
+
+  // Funciones
+  const showDemoReservations = () => {
+    // Activar modo demo
+    isDemoMode.value = true
+    console.log('Modo demo activado - mostrando reservaciones de demo')
+    // Cargar datos dummy para simular reservaciones existentes
+    loadDummyData()
+  }
+
+  const startNewReservation = () => {
+    // Resetear los datos de la reservación
+    resetReservationData()
+    // La navegación se maneja en el componente padre que llama a esta función
+    // y luego navega a 'reservation-type'
+  }
+
+  const selectReservationType = (type: string) => {
+    reservationType.value = type
+    // La navegación la maneja el componente padre
+  }
+
+  const viewReservationDetails = (reservation: any) => {
+    console.log('Ver detalles de reservación:', reservation)
+    // Aquí podrías navegar a una pantalla de detalles
+  }
+
+  const completeReservation = async (finalData: any) => {
+    try {
+      // Crear el payload según los tipos de la API de Attendance
+      const reservationPayload: AddAttendanceReservationRequest = {
+        userId: 'current-user-id', // Esto debería venir del store de autenticación
+        reservationId: 'temp-reservation-id', // Este campo es requerido para Attendance
+        visitDate: reservationData.value.date,
+        timeSlot: reservationData.value.time,
+        notes: reservationData.value.purpose || finalData.preferences || ''
+      }
+      
+      await createReservation(reservationPayload)
+      
+      // Resetear el formulario
+      resetReservationData()
+      
+      // Recargar las reservaciones
+      await getAllReservations()
+      
+    } catch (error) {
+      console.error('Error al crear la reservación:', error)
+    }
+  }
+
+  const resetReservationData = () => {
+    reservationData.value = {
+      // Campos básicos
+      name: '',
+      email: '',
+      phone: '',
+      participants: 1,
+      date: '',
+      time: '',
+      school: '',
+      grade: '',
+      purpose: '',
+      specialNeeds: '',
+      notes: '',
+      
+      // Campos específicos del paso 1
+      totalAttendees: 1,
+      hasUnder3: 'no',
+      minors: 0,
+      children: 0,
+      adults: 1,
+      seniors: 0,
+      hasDisability: 'no',
+      
+      // Campos adicionales del paso 3
+      source: '',
+      preferences: '',
+      comments: ''
+    }
+    reservationType.value = ''
+  }
+
+  const resetDemoMode = () => {
+    isDemoMode.value = false
+    console.log('Modo demo desactivado')
+  }
+
+  const loadReservations = async () => {
+    try {
+      await getAllReservations()
+    } catch (error) {
+      console.error('Error al cargar reservaciones:', error)
+    }
+  }
+
+  const loadSchools = async () => {
+    try {
+      await getSchools()
+    } catch (error) {
+      console.error('Error al cargar escuelas:', error)
+    }
+  }
+
+  const loadDummyData = () => {
+    // Datos dummy para el paso 1
+    reservationData.value = {
+      // Campos básicos
+      name: 'Juan Pérez',
+      email: 'juan.perez@email.com',
+      phone: '5512345678',
+      participants: 15,
+      date: '2024-02-15',
+      time: '10:00',
+      school: 'Escuela Nacional',
+      grade: '3er grado',
+      purpose: 'Visita educativa',
+      specialNeeds: 'Ninguna',
+      notes: 'Grupo de estudiantes interesados en economía',
+      
+      // Campos específicos del paso 1
+      totalAttendees: 15,
+      hasUnder3: 'no',
+      minors: 0,
+      children: 0,
+      adults: 15,
+      seniors: 0,
+      hasDisability: 'no',
+      
+      // Campos adicionales del paso 3
+      source: 'friend',
+      preferences: 'Preferimos una visita guiada por la mañana',
+      comments: 'Esperamos que sea una experiencia educativa muy enriquecedora'
+    }
+
+    // Datos dummy para el paso 2 (empresarial)
+    businessData.value = {
+      company: 'comp1',
+      position: 'Gerente de Recursos Humanos',
+      industry: 'Tecnología',
+      objectives: 'Capacitación en economía para empleados',
+      participants: 12,
+      samePersonResponsible: 'yes',
+      representativeName: 'María González',
+      representativePhone: '5587654321',
+      averageAge: '28',
+      mainConcepts: [],
+      secondaryConcepts: [],
+      municipality: '',
+      specialNeeds: ''
+    }
+
+    // Datos dummy para el paso 2 (curso de verano)
+    summerData.value = {
+      program: 'Curso de Verano 2024',
+      ageGroup: '8-12 años',
+      duration: '2 semanas',
+      activities: 'Talleres de economía básica',
+      participants: 20,
+      samePersonResponsible: 'yes',
+      representativeName: 'Ana López',
+      representativeEmail: 'ana.lopez@campamento.com',
+      representativePhone: '5566778899',
+      hasSpecialNeeds: 'no',
+      municipality: '',
+      specialNeeds: ''
+    }
+
+    // Datos dummy para el paso 2 (escolar)
+    schoolData.value = {
+      mainConcepts: [],
+      secondaryConcepts: [],
+      samePersonResponsible: true,
+      representativeName: '',
+      representativeEmail: '',
+      representativePhone: '',
+      municipality: '',
+      specialNeeds: ''
+    }
+
+    // Establecer tipo de reservación
+    reservationType.value = 'escolar'
+  }
+
+  return {
+    // Estado
+    materialTab: readonly(materialTab),
+    reservationType: readonly(reservationType),
+    reservationData: readonly(reservationData),
+    isDemoMode: readonly(isDemoMode),
+    businessData,
+    summerData,
+    schoolData,
+    reservations: readonly(reservations),
+    schools: readonly(schools),
+    loading: readonly(loading),
+    error: readonly(error),
+    hasReservations,
+
+    // Funciones
+    showDemoReservations,
+    resetDemoMode,
+    startNewReservation,
+    selectReservationType,
+    viewReservationDetails,
+    completeReservation,
+    resetReservationData,
+    loadReservations,
+    loadSchools,
+    loadDummyData
+  }
+} 

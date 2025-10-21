@@ -1,0 +1,33 @@
+# Nuxt dev/build outputs
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
+
+# Node dependencies
+node_modules
+
+# Logs
+logs
+*.log
+
+# Misc
+.DS_Store
+.fleet
+.idea
+
+# Local env files
+.env
+.env.*
+!.env.example
+
+# Cursor configuration files
+.cursorrules
+.cursor/
+.vscode/settings.json
+
+# UI components (temporary)
+components/ui/form/FormDescription.vue
+components/ui/form/index.ts

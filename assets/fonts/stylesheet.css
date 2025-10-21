@@ -1,0 +1,234 @@
+@font-face {
+    font-family: 'Sharp Grotesk Thin 25';
+    src: url('SharpGrotesk-Thin25.eot');
+    src: url('SharpGrotesk-Thin25.eot?#iefix') format('embedded-opentype'),
+        url('SharpGrotesk-Thin25.woff2') format('woff2'),
+        url('SharpGrotesk-Thin25.woff') format('woff'),
+        url('SharpGrotesk-Thin25.ttf') format('truetype'),
+        url('SharpGrotesk-Thin25.svg#SharpGrotesk-Thin25') format('svg');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sharp Grotesk Thin Italic 15';
+    src: url('SharpGrotesk-ThinItalic15.eot');
+    src: url('SharpGrotesk-ThinItalic15.eot?#iefix') format('embedded-opentype'),
+        url('SharpGrotesk-ThinItalic15.woff2') format('woff2'),
+        url('SharpGrotesk-ThinItalic15.woff') format('woff'),
+        url('SharpGrotesk-ThinItalic15.ttf') format('truetype'),
+        url('SharpGrotesk-ThinItalic15.svg#SharpGrotesk-ThinItalic15') format('svg');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sharp Grotesk Thin 20';
+    src: url('SharpGrotesk-Thin20.eot');
+    src: url('SharpGrotesk-Thin20.eot?#iefix') format('embedded-opentype'),
+        url('SharpGrotesk-Thin20.woff2') format('woff2'),
+        url('SharpGrotesk-Thin20.woff') format('woff'),
+        url('SharpGrotesk-Thin20.ttf') format('truetype'),
+        url('SharpGrotesk-Thin20.svg#SharpGrotesk-Thin20') format('svg');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sharp Grotesk Thin Italic 10';
+    src: url('SharpGrotesk-ThinItalic10.eot');
+    src: url('SharpGrotesk-ThinItalic10.eot?#iefix') format('embedded-opentype'),
+        url('SharpGrotesk-ThinItalic10.woff2') format('woff2'),
+        url('SharpGrotesk-ThinItalic10.woff') format('woff'),
+        url('SharpGrotesk-ThinItalic10.ttf') format('truetype'),
+        url('SharpGrotesk-ThinItalic10.svg#SharpGrotesk-ThinItalic10') format('svg');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sharp Grotesk Thin Italic 05';
+    src: url('SharpGrotesk-ThinItalic05.eot');
+    src: url('SharpGrotesk-ThinItalic05.eot?#iefix') format('embedded-opentype'),
+        url('SharpGrotesk-ThinItalic05.woff2') format('woff2'),
+        url('SharpGrotesk-ThinItalic05.woff') format('woff'),
+        url('SharpGrotesk-ThinItalic05.ttf') format('truetype'),
+        url('SharpGrotesk-ThinItalic05.svg#SharpGrotesk-ThinItalic05') format('svg');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sharp Grotesk Thin 15';
+    src: url('SharpGrotesk-Thin15.eot');
+    src: url('SharpGrotesk-Thin15.eot?#iefix') format('embedded-opentype'),
+        url('SharpGrotesk-Thin15.woff2') format('woff2'),
+        url('SharpGrotesk-Thin15.woff') format('woff'),
+        url('SharpGrotesk-Thin15.ttf') format('truetype'),
+        url('SharpGrotesk-Thin15.svg#SharpGrotesk-Thin15') format('svg');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sharp Grotesk SemiBold 15';
+    src: url('SharpGrotesk-SemiBold15.eot');
+    src: url('SharpGrotesk-SemiBold15.eot?#iefix') format('embedded-opentype'),
+        url('SharpGrotesk-SemiBold15.woff2') format('woff2'),
+        url('SharpGrotesk-SemiBold15.woff') format('woff'),
+        url('SharpGrotesk-SemiBold15.ttf') format('truetype'),
+        url('SharpGrotesk-SemiBold15.svg#SharpGrotesk-SemiBold15') format('svg');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sharp Grotesk Thin 10';
+    src: url('SharpGrotesk-Thin10.eot');
+    src: url('SharpGrotesk-Thin10.eot?#iefix') format('embedded-opentype'),
+        url('SharpGrotesk-Thin10.woff2') format('woff2'),
+        url('SharpGrotesk-Thin10.woff') format('woff'),
+        url('SharpGrotesk-Thin10.ttf') format('truetype'),
+        url('SharpGrotesk-Thin10.svg#SharpGrotesk-Thin10') format('svg');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sharp Grotesk SmBold Italic 20';
+    src: url('SharpGrotesk-SemiBoldItalic20.eot');
+    src: url('SharpGrotesk-SemiBoldItalic20.eot?#iefix') format('embedded-opentype'),
+        url('SharpGrotesk-SemiBoldItalic20.woff2') format('woff2'),
+        url('SharpGrotesk-SemiBoldItalic20.woff') format('woff'),
+        url('SharpGrotesk-SemiBoldItalic20.ttf') format('truetype'),
+        url('SharpGrotesk-SemiBoldItalic20.svg#SharpGrotesk-SemiBoldItalic20') format('svg');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sharp Grotesk SmBold Italic 15';
+    src: url('SharpGrotesk-SemiBoldItalic15.eot');
+    src: url('SharpGrotesk-SemiBoldItalic15.eot?#iefix') format('embedded-opentype'),
+        url('SharpGrotesk-SemiBoldItalic15.woff2') format('woff2'),
+        url('SharpGrotesk-SemiBoldItalic15.woff') format('woff'),
+        url('SharpGrotesk-SemiBoldItalic15.ttf') format('truetype'),
+        url('SharpGrotesk-SemiBoldItalic15.svg#SharpGrotesk-SemiBoldItalic15') format('svg');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sharp Grotesk SemiBold 05';
+    src: url('SharpGrotesk-SemiBold05.eot');
+    src: url('SharpGrotesk-SemiBold05.eot?#iefix') format('embedded-opentype'),
+        url('SharpGrotesk-SemiBold05.woff2') format('woff2'),
+        url('SharpGrotesk-SemiBold05.woff') format('woff'),
+        url('SharpGrotesk-SemiBold05.ttf') format('truetype'),
+        url('SharpGrotesk-SemiBold05.svg#SharpGrotesk-SemiBold05') format('svg');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sharp Grotesk SemiBold 20';
+    src: url('SharpGrotesk-SemiBold20.eot');
+    src: url('SharpGrotesk-SemiBold20.eot?#iefix') format('embedded-opentype'),
+        url('SharpGrotesk-SemiBold20.woff2') format('woff2'),
+        url('SharpGrotesk-SemiBold20.woff') format('woff'),
+        url('SharpGrotesk-SemiBold20.ttf') format('truetype'),
+        url('SharpGrotesk-SemiBold20.svg#SharpGrotesk-SemiBold20') format('svg');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sharp Grotesk Thin Italic 20';
+    src: url('SharpGrotesk-ThinItalic20.eot');
+    src: url('SharpGrotesk-ThinItalic20.eot?#iefix') format('embedded-opentype'),
+        url('SharpGrotesk-ThinItalic20.woff2') format('woff2'),
+        url('SharpGrotesk-ThinItalic20.woff') format('woff'),
+        url('SharpGrotesk-ThinItalic20.ttf') format('truetype'),
+        url('SharpGrotesk-ThinItalic20.svg#SharpGrotesk-ThinItalic20') format('svg');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sharp Grotesk SmBold Italic 10';
+    src: url('SharpGrotesk-SemiBoldItalic10.eot');
+    src: url('SharpGrotesk-SemiBoldItalic10.eot?#iefix') format('embedded-opentype'),
+        url('SharpGrotesk-SemiBoldItalic10.woff2') format('woff2'),
+        url('SharpGrotesk-SemiBoldItalic10.woff') format('woff'),
+        url('SharpGrotesk-SemiBoldItalic10.ttf') format('truetype'),
+        url('SharpGrotesk-SemiBoldItalic10.svg#SharpGrotesk-SemiBoldItalic10') format('svg');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sharp Grotesk Thin 05';
+    src: url('SharpGrotesk-Thin05.eot');
+    src: url('SharpGrotesk-Thin05.eot?#iefix') format('embedded-opentype'),
+        url('SharpGrotesk-Thin05.woff2') format('woff2'),
+        url('SharpGrotesk-Thin05.woff') format('woff'),
+        url('SharpGrotesk-Thin05.ttf') format('truetype'),
+        url('SharpGrotesk-Thin05.svg#SharpGrotesk-Thin05') format('svg');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sharp Grotesk SemiBold 25';
+    src: url('SharpGrotesk-SemiBold25.eot');
+    src: url('SharpGrotesk-SemiBold25.eot?#iefix') format('embedded-opentype'),
+        url('SharpGrotesk-SemiBold25.woff2') format('woff2'),
+        url('SharpGrotesk-SemiBold25.woff') format('woff'),
+        url('SharpGrotesk-SemiBold25.ttf') format('truetype'),
+        url('SharpGrotesk-SemiBold25.svg#SharpGrotesk-SemiBold25') format('svg');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sharp Grotesk SemiBold 10';
+    src: url('SharpGrotesk-SemiBold10.eot');
+    src: url('SharpGrotesk-SemiBold10.eot?#iefix') format('embedded-opentype'),
+        url('SharpGrotesk-SemiBold10.woff2') format('woff2'),
+        url('SharpGrotesk-SemiBold10.woff') format('woff'),
+        url('SharpGrotesk-SemiBold10.ttf') format('truetype'),
+        url('SharpGrotesk-SemiBold10.svg#SharpGrotesk-SemiBold10') format('svg');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sharp Grotesk SmBold Italic 05';
+    src: url('SharpGrotesk-SemiBoldItalic05.eot');
+    src: url('SharpGrotesk-SemiBoldItalic05.eot?#iefix') format('embedded-opentype'),
+        url('SharpGrotesk-SemiBoldItalic05.woff2') format('woff2'),
+        url('SharpGrotesk-SemiBoldItalic05.woff') format('woff'),
+        url('SharpGrotesk-SemiBoldItalic05.ttf') format('truetype'),
+        url('SharpGrotesk-SemiBoldItalic05.svg#SharpGrotesk-SemiBoldItalic05') format('svg');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+

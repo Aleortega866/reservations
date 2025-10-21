@@ -1,0 +1,163 @@
+import { ref, computed, readonly } from 'vue'
+import { UserService } from '@/lib/api/services/users/user.service'
+import type { User, CreateUserRequest, UpdateUserRequest } from '@/lib/api/services/users/user.service'
+import type { UserFormData, EditUserFormData } from '@/lib/validations/users'
+import { useToast } from './useToast'
+
+export interface MuseoUser {
+  id: string
+  nombre: string
+  apellidoPaterno: string
+  apellidoMaterno: string
+  correoElectronico: string
+  isActive: boolean
+  createdAt: string
+  updatedAt: string
+}
+
+export function useUsers() {
+  const { showSuccess, showError } = useToast()
+  const userService = new UserService()
+  
+  const users = ref<MuseoUser[]>([])
+  const isLoading = ref(false)
+  const isCreating = ref(false)
+  const isUpdating = ref(false)
+  const isDeleting = ref(false)
+
+  // Computed para el nombre completo
+  const getFullName = (user: MuseoUser) => {
+    return `${user.nombre} ${user.apellidoPaterno} ${user.apellidoMaterno}`.trim()
+  }
+
+  // Cargar todos los usuarios
+  const loadUsers = async () => {
+    isLoading.value = true
+    try {
+      const response = await userService.getAllUsers()
+      // Transformar los datos del API al formato requerido
+      users.value = response.data.map(user => ({
+        id: user.id,
+        nombre: user.firstName,
+        apellidoPaterno: user.lastName.split(' ')[0] || '',
+        apellidoMaterno: user.lastName.split(' ').slice(1).join(' ') || '',
+        correoElectronico: user.email,
+        isActive: user.isActive,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt
+      }))
+    } catch (error) {
+      console.error('Error al cargar usuarios:', error)
+      showError('Error', 'No se pudieron cargar los usuarios')
+    } finally {
+      isLoading.value = false
+    }
+  }
+
+  // Crear nuevo usuario
+  const createUser = async (userData: UserFormData) => {
+    isCreating.value = true
+    try {
+      const createRequest: CreateUserRequest = {
+        email: userData.correoElectronico,
+        username: userData.correoElectronico.split('@')[0], // Usar parte del email como username
+        firstName: userData.nombre,
+        lastName: `${userData.apellidoPaterno} ${userData.apellidoMaterno}`.trim(),
+        password: userData.contraseña
+      }
+
+      await userService.createUser(createRequest)
+      
+      showSuccess('Éxito', 'Usuario creado correctamente')
+
+      // Recargar la lista de usuarios
+      await loadUsers()
+      return true
+    } catch (error) {
+      console.error('Error al crear usuario:', error)
+      showError('Error', 'No se pudo crear el usuario')
+      return false
+    } finally {
+      isCreating.value = false
+    }
+  }
+
+  // Actualizar usuario
+  const updateUser = async (userId: string, userData: EditUserFormData) => {
+    isUpdating.value = true
+    try {
+      const updateRequest: UpdateUserRequest = {
+        email: users.value.find(u => u.id === userId)?.correoElectronico || null,
+        name: userData.nombre,
+        paternalLastName: userData.apellidoPaterno,
+        maternalLastName: userData.apellidoMaterno
+        // Nota: La contraseña se maneja por separado en el backend
+      }
+
+      await userService.updateUser(updateRequest)
+      
+      showSuccess('Éxito', 'Usuario actualizado correctamente')
+
+      // Recargar la lista de usuarios
+      await loadUsers()
+      return true
+    } catch (error) {
+      console.error('Error al actualizar usuario:', error)
+      showError('Error', 'No se pudo actualizar el usuario')
+      return false
+    } finally {
+      isUpdating.value = false
+    }
+  }
+
+  // Eliminar usuario
+  const deleteUser = async (userId: string) => {
+    isDeleting.value = true
+    try {
+      await userService.deleteUser(userId)
+      
+      showSuccess('Éxito', 'Usuario eliminado correctamente')
+
+      // Recargar la lista de usuarios
+      await loadUsers()
+      return true
+    } catch (error) {
+      console.error('Error al eliminar usuario:', error)
+      showError('Error', 'No se pudo eliminar el usuario')
+      return false
+    } finally {
+      isDeleting.value = false
+    }
+  }
+
+  // Buscar usuario por email
+  const searchUserByEmail = async (email: string) => {
+    try {
+      const response = await userService.getUserByEmail(email)
+      return response.data
+    } catch (error) {
+      console.error('Error al buscar usuario:', error)
+      return null
+    }
+  }
+
+  // Filtrar usuarios por email
+  const filteredUsers = computed(() => {
+    return users.value
+  })
+
+  return {
+    users: readonly(users),
+    isLoading: readonly(isLoading),
+    isCreating: readonly(isCreating),
+    isUpdating: readonly(isUpdating),
+    isDeleting: readonly(isDeleting),
+    getFullName,
+    loadUsers,
+    createUser,
+    updateUser,
+    deleteUser,
+    searchUserByEmail,
+    filteredUsers
+  }
+}
