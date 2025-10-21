@@ -27,8 +27,23 @@ const { isLoading, loadingText, showText, showSpinner } = useAppLoading();
 onMounted(() => {
   router.onError((error: Error) => {
     const errorMsg = error?.message || "";
+
     if (errorMsg.includes("Failed to fetch dynamically imported module")) {
+      const reloadFlagKey = "nuxt:chunk-error-reload";
+
+      // Evita recargas infinitas si el módulo dinámico sigue fallando después de un reload
+      const hasReloaded = sessionStorage.getItem(reloadFlagKey);
+
+      if (hasReloaded) {
+        sessionStorage.removeItem(reloadFlagKey);
+        console.error(
+          "⚠️ No fue posible recuperar el módulo dinámico incluso tras recargar la página."
+        );
+        return;
+      }
+
       console.warn("🔄 Error de módulo dinámico detectado, recargando...");
+      sessionStorage.setItem(reloadFlagKey, "true");
       window.location.reload();
     }
   });

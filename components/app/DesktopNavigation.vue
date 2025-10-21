@@ -70,7 +70,7 @@
           <div class="flex items-center space-x-4">
             <Button
               variant="ghost"
-              @click="handleNewReservation"
+              @click="handleReservationsClick"
               class="text-gray-600 hover:text-white"
             >
               Reservaciones
@@ -198,9 +198,13 @@ const { toggleSidebar } = useSidebar();
 const router = useRouter();
 
 // Funciones
+const handleReservationsClick = () => {
+  router.push("/reservations");
+};
+
 const handleNewReservation = () => {
   emit("new-reservation");
-  router.push("/reservations");
+  router.push("/reservations/formulario-reservacion");
 };
 
 const handleMaterialClick = () => {
