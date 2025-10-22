@@ -20,6 +20,20 @@ const publicRoutes = [
 
 ]
 
+const normalizePath = (path: string) => {
+  if (!path) {
+    return '/'
+  }
+
+  const lowerCasePath = path.toLowerCase()
+  // Remove any trailing slash except for the root path
+  return lowerCasePath !== '/' && lowerCasePath.endsWith('/')
+    ? lowerCasePath.slice(0, -1)
+    : lowerCasePath
+}
+
+const normalizedPublicRoutes = publicRoutes.map((route) => normalizePath(route))
+
 // @ts-ignore - Auto-importado por Nuxt
 export default defineNuxtRouteMiddleware((to) => {
   // Solo se ejecuta en el cliente
@@ -30,7 +44,7 @@ export default defineNuxtRouteMiddleware((to) => {
     const hasValidToken = token.value && token.value.trim() !== ''
     
     // Verificar si la ruta actual es pública
-    const isPublicRoute = publicRoutes.includes(to.path)
+    const isPublicRoute = normalizedPublicRoutes.includes(normalizePath(to.path))
     
     // Si es una ruta pública, permitir acceso
     if (isPublicRoute) {
