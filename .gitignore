@@ -28,6 +28,3 @@ logs
 .cursor/
 .vscode/settings.json
 
-# UI components (temporary)
-components/ui/form/FormDescription.vue
-components/ui/form/index.ts
