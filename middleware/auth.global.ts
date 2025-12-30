@@ -11,6 +11,9 @@ const publicRoutes = [
   '/auth/forgot-password',
   '/auth/reset-password',
   '/auth/confirm-user',
+
+  // Confirmación de usuario desde enlaces alojados en /reservations
+  '/reservations/confirm-user',
   
   // Información legal y pública
   '/legal-information',
